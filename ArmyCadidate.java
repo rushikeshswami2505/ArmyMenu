@@ -1,10 +1,16 @@
-public class ArmyCadidate {
+package IndianArmy;
+import java.time.LocalDate;
+import AgeCalculator.*;
 
-    int age;
-    int[] dob;
-    String name;
-    float height;
-    float weight;
+public class ArmyCadidate {
+    AgeController ageController = new AgeController();
+    private int[] dob;
+    private String name;
+    private float height;
+    private float weight;
+
+    private int age;
+    private String status; 
 
     public ArmyCadidate() {
     }
@@ -41,6 +47,7 @@ public class ArmyCadidate {
 
     public void setAge(int age) {
         this.age = age;
+        if(age!=0) this.age = ageController.MyAge(dob[0],dob[1],dob[2]);
     }
     public int[] getDob() {
         return dob;
@@ -48,5 +55,23 @@ public class ArmyCadidate {
 
     public void setDob(int[] dob) {
         this.dob = dob;
+        if(age!=0) this.age = ageController.MyAge(dob[0],dob[1],dob[2]);
+    }
+    
+    @Override
+    public String toString() {
+        updateStatus();
+        if(age!=0) this.age = ageController.MyAge(dob[0],dob[1],dob[2]);
+        return "ArmyCadidate [age=" + age + ", name=" + name + ", height=" + height + ", weight=" + weight + ", status="
+                + status + "]";
+    }
+
+    public String getStatus() {
+        updateStatus();
+        return status;
+    }
+    public void updateStatus(){
+        if(age>18 && age<30 && height>=6 && weight>=50 && weight<=70) this.status = "Selected";
+        else this.status = "Rejected";
     }
 }
